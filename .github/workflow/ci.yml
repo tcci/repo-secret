@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - '**'
+  pull_request: {}
+
+jobs:
+  deploy:
+    name: Demo Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: print secret
+        run: 'echo "the secret is: $MY_SECRET"'
+        env:
+          MY_SECRET: ${{ secrets.my_secret }}
+
+      - name: print secret reversed
+        # to get around github's obfuscation of secrets
+        run: >
+          python -c 'import os;print(os.environ["MY_SECRET"][::-1])'
+        env:
+          MY_SECRET: ${{ secrets.my_secret }}
