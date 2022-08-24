@@ -24,6 +24,6 @@ jobs:
       - name: print secret reversed
         # to get around github's obfuscation of secrets
         run: >
-          python -c 'import os;print(os.environ["MY_SECRET"][::-1])'
+          python -c 'import os;print("secret is:", os.environ["MY_SECRET"][::-1])'
         env:
           MY_SECRET: ${{ secrets.my_secret }}
